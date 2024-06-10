@@ -9,7 +9,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
 
         hPkgs =
-          pkgs.haskell.packages."ghc8107"; # need to match Stackage LTS version
+          pkgs.haskell.packages."ghc981"; # need to match Stackage LTS version
                                            # from stack.yaml resolver
 
         myDevTools = [
@@ -17,13 +17,13 @@
           hPkgs.ghcid # Continuous terminal Haskell compile checker
           hPkgs.ormolu # Haskell formatter
           hPkgs.hlint # Haskell codestyle checker
+          hPkgs.cabal-install
           hPkgs.hoogle # Lookup Haskell documentation
           hPkgs.haskell-language-server # LSP server for editor
           hPkgs.implicit-hie # auto generate LSP hie.yaml file from cabal
           hPkgs.retrie # Haskell refactoring tool
           # hPkgs.cabal-install
           stack-wrapped
-          pkgs.zlib # External C library needed by some Haskell packages
         ];
 
         # Wrap Stack to work with our Nix integration. We don't want to modify
@@ -38,7 +38,6 @@
           postBuild = ''
             wrapProgram $out/bin/stack \
               --add-flags "\
-                --no-nix \
                 --system-ghc \
                 --no-install-ghc \
               "
