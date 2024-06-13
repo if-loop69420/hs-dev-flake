@@ -10,7 +10,7 @@
   in {
     devShells = forAllSystems (pkgs:
       let
-        hPkgs = pkgs.haskell.packages."ghc981";
+        hPkgs = pkgs.haskell.packages.ghc965; # LTS-22.25
 
         devTools = [
           hPkgs.ghc # GHC compiler in the desired version (will be available on PATH)
